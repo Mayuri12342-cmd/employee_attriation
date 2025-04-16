@@ -1,6 +1,6 @@
-import streamlit as st
-import joblib
-import numpy as np
-import pandas as pd
-import base64
-from streamlit_extras.metric_cards import style_metric_cards
+streamlit>=1.0
+joblib>=1.0
+numpy>=1.20
+pandas>=1.2
+streamlit-extras>=0.0.1
+
