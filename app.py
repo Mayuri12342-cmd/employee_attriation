@@ -3,9 +3,8 @@ import joblib
 import numpy as np
 import pandas as pd
 import base64
-from streamlit_extras.metric_cards import style_metric_cards
 
-# Set background image
+# Set background
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
@@ -28,23 +27,26 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
+# Add background image
 add_bg_from_local("background.jpg")
 
-#load file
+# Load model and feature names
 model = joblib.load("best_model.pkl")
 feature_names = joblib.load("feature_names.pkl")
 
-# Title
+# Title and subtitle
 st.markdown("""
     <h1 style='text-align: center; color: #003366;'>🔍 Employee Attrition Predictor</h1>
     <p style='text-align: center; font-size:18px;'>Use key details to estimate if an employee might leave the company.</p>
 """, unsafe_allow_html=True)
 
+# Info expander
 with st.expander("ℹ️ What does this do?"):
     st.markdown("This tool uses a machine learning model trained on employee data to predict if an individual is likely to leave the company.")
 
 st.markdown("---")
 
+# Selected features
 selected_features = [
     'Age',
     'MonthlyIncome',
@@ -55,9 +57,9 @@ selected_features = [
     'OverTime_Yes'
 ]
 
-# empty dictionary to store the input data
 input_data = {}
 
+# Input layout
 col1, col2 = st.columns(2)
 
 with col1:
@@ -71,12 +73,12 @@ with col2:
     input_data['DistanceFromHome'] = st.slider("📍 Distance From Home (km)", 1, 50, 10)
     input_data['YearsAtCompany'] = st.slider("🏢 Years at Company", 0, 40, 5)
 
-# input dataframe
+# input for prediction
 full_input = {f: 0 for f in feature_names}
 full_input.update(input_data)
 input_df = pd.DataFrame([full_input])
 
-# Prediction button
+# Prediction
 st.markdown("---")
 if st.button("🔮 Predict Attrition"):
     prediction = model.predict(input_df)[0]
@@ -85,5 +87,3 @@ if st.button("🔮 Predict Attrition"):
         st.error("⚠️ This employee is likely to leave.")
     else:
         st.success("✅ This employee is likely to stay.")
-
-
