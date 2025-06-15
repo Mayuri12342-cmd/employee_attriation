@@ -48,5 +48,5 @@ The Random Forest model achieved the highest accuracy.
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/employee-attrition-ml.git
+git clone https://github.com/Mayuri12342-cmd/employee-attrition-ml.git
 cd employee-attrition-ml
